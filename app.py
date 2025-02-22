@@ -136,8 +136,8 @@ if __name__ == '__main__':
             normalize_uploaded_file_name = uploaded_file.name.translate(
                 str.maketrans({"-": "_", ".": "_", " ": "_"})
             )
-            # all_splits = process_document(uploaded_file)
-            # add_to_vector_collection(all_splits, normalize_uploaded_file_name)
+            all_splits = process_document(uploaded_file)
+            add_to_vector_collection(all_splits, normalize_uploaded_file_name)
 
     # Question Answer Area
     st.header("RAG Question Answer")
@@ -145,16 +145,16 @@ if __name__ == '__main__':
     ask = st.button(
         "Submit",
     )
-    # if ask and prompt:
-    #     results = query_collection(prompt)
-    #     context = results.get("documents")[0]
-    #     relevant_text, relevant_text_ids = re_rank_cross_encoders(context)
-    #     response = call_llm(context=relevant_text, prompt=prompt)
-    #     st.write_stream(response)
+    if ask and prompt:
+        results = query_collection(prompt)
+        context = results.get("documents")[0]
+        relevant_text, relevant_text_ids = re_rank_cross_encoders(context)
+        response = call_llm(context=relevant_text, prompt=prompt)
+        st.write_stream(response)
 
-    #     with st.expander("See retrieved documents"):
-    #         st.write(results)
+        with st.expander("See retrieved documents"):
+            st.write(results)
 
-    #     with st.expander("See most relevant document ids"):
-    #         st.write(relevant_text_ids)
-    #         st.write(relevant_text)
+        with st.expander("See most relevant document ids"):
+            st.write(relevant_text_ids)
+            st.write(relevant_text)
